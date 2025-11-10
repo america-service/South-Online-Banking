@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>South Online Banking Dashboard </title>
+<title>South Online Banking Dashboard</title>
 <style>
   /* Reset + base */
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -104,7 +104,7 @@
   tbody tr:nth-child(even){ background:#f9f9f9 }
   tbody tr:hover{ background:#eef5ff }
 
-  /* Floating WhatsApp (keeps your asset) */
+  /* Floating WhatsApp */
   .whats-app{ position: fixed; right: 18px; bottom: 18px; z-index: 999; text-decoration:none; }
   .whats-app img{ height:55px; width:auto; display:block }
 
@@ -123,7 +123,7 @@
   </div>
   <div class="right">
     <a href="#">Settings</a>
-    <a href="#" onclick="logout()">Logout</a>
+    <a href="logout.html">Logout</a> <!-- Updated logout link -->
   </div>
 </header>
 
@@ -175,6 +175,8 @@
     <a href="deposit.html">Deposit</a>
     <a href="withdraw.html">Withdraw</a>
     <a href="wire.html">Send</a>
+    <a href="connect.html">Connect</a> <!-- New Connect button -->
+    <a href="logout.html">Logout</a>    <!-- Logout in action buttons -->
   </div>
 
   <section class="crypto-box" aria-label="Card ordering">
@@ -182,7 +184,6 @@
     <div class="view-card-box" id="viewCardBox" role="button" tabindex="0" aria-pressed="false">View Bank Card</div>
 
     <div class="card-container" id="cardContainer" aria-hidden="true" title="Click to flip card">
-      <!-- front shown initially; back hidden -->
       <img src="auth/front.png" alt="ATM Card Front" class="atm-card" id="cardFront">
       <img src="auth/back.png" alt="ATM Card Back" class="atm-card hidden" id="cardBack">
     </div>
@@ -200,7 +201,7 @@
         <thead>
           <tr><th>#</th><th>Date</th><th>Description</th><th>Amount</th><th>Type</th></tr>
         </thead>
-        <tbody>
+              <tbody>
   <!-- Updated OrBit Company weekly payments June to October -->
   <!-- June 2025 -->
   <tr><td>1</td><td>2025-06-06</td><td>OrBit Company Payment</td><td>$500.00</td><td>Deposit</td></tr>
@@ -235,7 +236,6 @@
   <tr><td>22</td><td>2025-10-24</td><td>OrBit Company Payment</td><td>$500.00</td><td>Deposit</td></tr>
   <tr><td>23</td><td>2025-10-31</td><td>OrBit Company Payment</td><td>$500.00</td><td>Deposit</td></tr>
 </tbody>
-
       </table>
     </div>
   </section>
@@ -248,7 +248,10 @@
 <footer>&copy; <span id="year"></span> South Online Banking Dashboard. All rights reserved.</footer>
 
 <script>
-  // Basic interactions
+  // Update year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Transactions toggle
   function toggleHistory(){
     const box = document.getElementById("historyBox");
     const arrow = document.getElementById("arrow");
@@ -263,14 +266,7 @@
     }
   }
 
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  function logout(){
-    alert("Logged out (demo).");
-  }
-
   function openUpgrade(){
-    // In a real app you'd navigate or open a modal
     window.location.href = "activate.html";
   }
 
@@ -281,7 +277,6 @@
   const cardBack = document.getElementById('cardBack');
   let showingFront = true;
 
-  // Toggle container visibility
   viewBox.addEventListener('click', () => {
     const isHidden = cardContainer.style.display === '' || cardContainer.style.display === 'none';
     cardContainer.style.display = isHidden ? 'block' : 'none';
@@ -289,7 +284,6 @@
     viewBox.setAttribute('aria-pressed', String(!isHidden));
   });
 
-  // Clicking the card container flips front/back
   cardContainer.addEventListener('click', () => {
     if (showingFront) {
       cardFront.classList.add('hidden');
@@ -301,7 +295,6 @@
     showingFront = !showingFront;
   });
 
-  // Support keyboard activation for accessibility
   viewBox.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') viewBox.click();
   });
